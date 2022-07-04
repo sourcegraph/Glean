@@ -453,6 +453,9 @@ struct ASTVisitor : public clang::RecursiveASTVisitor<ASTVisitor> {
       case clang::DeclarationName::CXXUsingDirective:
         return folly::none;
     }
+    // NOTE(varun): Fix warning with -Wreturn-type because of
+    // lack of exhaustivity with clang-12
+    return folly::none;
   }
 
 
@@ -1252,6 +1255,9 @@ struct ASTVisitor : public clang::RecursiveASTVisitor<ASTVisitor> {
           case clang::SC_Auto: return {};
           case clang::SC_Register: return {};
         }
+        // NOTE(varun): Fix warning with -Wreturn-type because of
+        // lack of exhaustivity with clang-12
+        return {};
       }
     }
 
